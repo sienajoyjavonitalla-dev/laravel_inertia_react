@@ -8,8 +8,8 @@ export default function Layout({children}) {
                     <Link className="nav-link" href="/">
                         Home
                     </Link>
-                    <Link className="nav-link" href="/about">
-                        About
+                    <Link className="nav-link" href="/posts/create">
+                        Create
                     </Link>
                 </nav>
             </header>
