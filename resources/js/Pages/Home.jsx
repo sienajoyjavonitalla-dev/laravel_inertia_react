@@ -1,23 +1,25 @@
-import { Link, usePage } from "@inertiajs/react";
+import { Head, Link, usePage } from "@inertiajs/react";
 import { useState, useEffect } from "react";
 
 export default function Home({posts}) {
-    const flash = usePage().props['0']?.flash;  // Access flash from the '0' key
-    const [showFlash, setShowFlash] = useState(!!flash?.message);
+    const flash = usePage().props['0']?.flash;  // Access flash from the '0' 
+    const {component} = usePage();
+    const [showFlash, setShowFlash] = useState(!!flash?.success);
 
     useEffect(() => {
-        if (flash?.message) {
+        if (flash?.success) {
             setShowFlash(true);
             const timer = setTimeout(() => setShowFlash(false), 2000);
             return () => clearTimeout(timer);
         }
-    }, [flash?.message]);
+    }, [flash?.success]);
 
     return <>
+        <Head title={component}/>
         <h1 className="title"> Posts</h1>
-        {showFlash && flash?.message && (
+        {showFlash && flash?.success && (
             <div className="fixed top-4 right-4 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4 z-50">
-                {flash.message}
+                {flash.success}
             </div>
         )}
         <div>

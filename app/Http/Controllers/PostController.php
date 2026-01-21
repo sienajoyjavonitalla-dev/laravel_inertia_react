@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class PostController extends Controller
 {
@@ -33,7 +34,7 @@ class PostController extends Controller
             'body' => 'required',
         ]);
         Post::create($data);
-        return redirect('/');
+        return redirect('/')->with('success', 'Post created successfully.');
     }
 
     /**
@@ -49,7 +50,9 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        //
+        return Inertia::render('Edit', [
+            'post' => $post
+        ]);
     }
 
     /**
@@ -57,7 +60,13 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        //
+        $request->validate([
+            'body' => 'required'
+        ]);
+
+        $post->update($request->only('body'));
+
+        return redirect('/')->with('success', 'Post updated successfully.');
     }
 
     /**
@@ -66,6 +75,6 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
         $post->delete();
-        return redirect('/')->with('message', 'Post deleted successfully.');
+        return redirect('/')->with('success', 'Post deleted successfully.');
     }
 }

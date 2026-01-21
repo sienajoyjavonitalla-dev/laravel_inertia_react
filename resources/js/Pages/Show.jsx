@@ -25,13 +25,18 @@ export default function Show({ post }) {
                 <Link href={route('home')} className="text-blue-500">
                     Back to Posts
                 </Link>
-                <form onSubmit={submit} className="inline">
-                    <button 
-                        className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
-                    >
-                        Delete Post
-                    </button>
-                </form>
+                <div className="flex space-x-4">
+                    <Link href={route('posts.edit', post)} className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
+                        Edit
+                    </Link>
+                    <form onSubmit={submit} className="inline">
+                        <button 
+                            className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+                        >
+                            Delete Post
+                        </button>
+                    </form>
+                </div>
             </div>
         </>
     );
